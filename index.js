@@ -1,16 +1,9 @@
 'use strict';
 
-/**
- * Adds commas to a number
- * @param {number} number
- * @param {string} locale
- * @return {string}
- */
-
-function picPipe () {
-	console.log('go');
+function picPipe() {
+	console.log('yahh');
 }
 
-exports.mathStuff = function(number, locale) {
-    return number.toLocaleString(locale);
+exports.mathStuff = function (number, locale) {
+	return number.toLocaleString(locale);
 };
