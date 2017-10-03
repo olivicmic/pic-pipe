@@ -14,6 +14,7 @@ module.exports = {
 	'keyword-spacing': [2, { before: true, after: true }],
 	'max-len': 0,
 	'new-cap': [2, { newIsCapExceptions: ['acl.memoryBackend', 'acl'] }],
+	'newline-per-chained-call': ["error", { "ignoreChainWithDepth": 2 }],
 	'no-bitwise': 0,
 	'no-caller': 2,
 	'no-console': 0,

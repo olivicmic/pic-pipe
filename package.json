@@ -27,5 +27,11 @@
     "gulp-refresh": "^1.1.0",
     "mocha": "^3.5.3",
     "run-sequence": "^2.2.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "request": "^2.83.0",
+    "sharp": "^0.18.4",
+    "util": "^0.10.3"
   }
 }
