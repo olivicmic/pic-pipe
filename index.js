@@ -1,11 +1,52 @@
 'use strict';
 
 var Blue = require('bluebird'),
-	sharp = require('sharp');
+	sharp = require('sharp'),
+	getPixels = require('get-pixels'),
+	palette = require('get-rgba-palette'),
+	chroma = require('chroma-js');
 
 function picPipe() {
 	console.log('yahh');
 }
+
+var colorArrGen = function (input) {
+	if (input.type === 'samples') {
+		return palette(input.pixels.data, input.count).map(function (rgba) {
+			return chroma(rgba)
+				.saturate(0.33)
+				.brighten(0.25)
+				.hex()
+				.slice(1);
+		});
+	} else if (input.type === 'average') {
+		return palette(input.pixels.data, input.count, function (rgba) {
+			return chroma(rgba).hsl();
+		});
+	}
+};
+
+var colorPull = function (input, output) {
+	getPixels(input.buffer, input.mimetype, function (err, pixels) {
+		if (err) {
+			throw new Error(err);
+		}
+		var picColors = colorArrGen({
+			pixels: pixels,
+			count: 9,
+			type: 'samples'
+		});
+		var colorAverage = colorArrGen({
+			pixels: pixels,
+			count: 1,
+			type: 'average'
+		});
+		return output(null, {
+			picColors: picColors,
+			colorAverage: colorAverage[0]
+		});
+	});
+};
 
 var resizer = function (input, output) {
 	const resizerError = new Error();
@@ -192,3 +233,5 @@ exports.resizeAndCompress = function (input) {
 		});
 	});
 };
+
+exports.colorPull = colorPull;
