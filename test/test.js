@@ -19,6 +19,26 @@ const expect = require('chai').expect,
 	smallPngLand = testLocation + 'landscape-640x480.png',
 	smallPngSqr = testLocation + 'square-640x640.png';
 
+var dateFormat = function () {
+	var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+		time = new Date(),
+		day = time.getDate(),
+		mm = time.getMonth(),
+		year = time.getFullYear(),
+		hr = time.getHours(),
+		min = time.getMinutes(),
+		month = monthArr[mm];
+
+	var clock = function () {
+		if (hr >= 12) {
+			var hour = hr - 12;
+			return hour + '.' + min + 'PM';
+		}
+		return hr + '.' + min + 'AM';
+	};
+	return month + day + '_' + year + '_' + clock();
+};
+
 var typeMsg = function (mime, format) {
 	console.log('input type: ' + mime + ', output type: ' + format);
 };
@@ -116,6 +136,24 @@ var colorTest = function (options, done) {
 			expect(colors.picColors.length).to.be.above(1);
 			expect(colors.picColors.length).to.be.at.most(9);
 			expect(colors.colorAverage.length).to.equal(3);
+			done();
+		});
+	});
+};
+
+
+var bucketTest = function (options, done) {
+	request.get(options.url, function (err, res, body) {
+		var pic = {
+			buffer: body,
+			name: 'testing_dir/' + dateFormat() + '.' + options.mime,
+			bucket: process.env.S3_BUCKET,
+			mimetype: mimer(options.mime)
+		};
+		picPipe.bucketer(pic, function (err, uploaded) {
+			console.log('uploaded:');
+			console.log(uploaded);
+			expect(uploaded).to.include.keys('ETag');
 			done();
 		});
 	});
@@ -283,7 +321,7 @@ describe('#picPipe', function () {
 	});
 
  	var colorTxt = 'should return a set of colors and an average color from ';
-
+ 	// color extracting tests
 	it(colorTxt + 'large jpg', function (done) {
 		colorTest({ url: largeJpgSqr, mime: 'jpg' }, function (complete) {
 			done(complete);
@@ -304,6 +342,14 @@ describe('#picPipe', function () {
 
 	it(colorTxt + 'small png', function (done) {
 		colorTest({ url: smallPngSqr, mime: 'png' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	// S3 uploading test
+
+	it('Should upload image to S3 returning an ETag', function (done) {
+		bucketTest({ url: smallPngSqr, mime: 'png' }, function (complete) {
 			done(complete);
 		});
 	});

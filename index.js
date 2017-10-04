@@ -1,14 +1,48 @@
 'use strict';
 
-var Blue = require('bluebird'),
-	sharp = require('sharp'),
+var AWS = require('aws-sdk'),
+	Blue = require('bluebird'),
+	chroma = require('chroma-js'),
 	getPixels = require('get-pixels'),
 	palette = require('get-rgba-palette'),
-	chroma = require('chroma-js');
+	sharp = require('sharp');
 
-function picPipe() {
-	console.log('yahh');
-}
+AWS.config.update({
+	accessKeyId: process.env.S3_KEY,
+	secretAccessKey: process.env.S3_SECRET,
+	region: process.env.AWS_REGION
+});
+
+var s3Up = function (uploadObj, response) {
+	var s3 = new AWS.S3();
+	s3.putObject(uploadObj, function (err, data) {
+		if (err) {
+			response(err, null);
+		}
+		response(null, data);
+	});
+};
+
+var bucketer = function (input, output) {
+
+	var s3Pic = {
+		Body: input.buffer,
+		Key: input.name,
+		Bucket: input.bucket,
+		ContentType: input.mimetype
+	};
+
+	s3Up(s3Pic, function (err, mainData) {
+		if (err) {
+			return output(err, null);
+		}
+		var uploaded = mainData;
+		uploaded.Key = s3Pic.Key;
+		uploaded.Bucket = s3Pic.Bucket;
+		uploaded.ContentType = s3Pic.ContentType;
+		return output(null, uploaded);
+	});
+};
 
 var colorArrGen = function (input) {
 	if (input.type === 'samples') {
@@ -212,7 +246,7 @@ var imgJunction = function (input, output) {
 	}
 };
 
-exports.resizeAndCompress = function (input) {
+var resizeAndCompress = function (input) {
 	if (!input.mimetype) {
 		throw new Error('mimetype not provided');
 	}
@@ -234,4 +268,6 @@ exports.resizeAndCompress = function (input) {
 	});
 };
 
+exports.bucketer = bucketer;
 exports.colorPull = colorPull;
+exports.resizeAndCompress = resizeAndCompress;
