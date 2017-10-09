@@ -23,7 +23,38 @@ var s3Up = function (uploadObj, response) {
 	});
 };
 
+/**
+ * Uploads objects with image buffer to S3.
+ * 
+ * @param {object} input - Main input object containing buffer and parameters.
+ * @property {buffer} input.buffer - File buffer.
+ * @property {string} input.name - A string with name of directory, filename, and extension.
+ * @property {string} input.bucket - A string with the S3 bucket name.
+ * @property {string} input.mimetype - A string with the file mimetype.
+ * 
+ * @callback {object} output - Output object containing an error or what was uploaded.
+ * @param {object} err - Contains the error object if there is an error.
+ * @param {object} uploaded - Contains confimation and summary of what was uploaded.
+ * @property {string} uploaded.ETag - A string that confirms valid upload.
+ * @property {string} uploaded.Key - A string with a directory, filename, extension of S3 upload.
+ * @property {string} uploaded.Bucket - A string of the S3 bucket used.
+ * @property {string} uploaded.ContentType - Mimetype of the uploaded file.
+ */
 var bucketer = function (input, output) {
+	const bucketerError = new Error();
+	if (!input.buffer || input.buffer.length <= 0) {
+		bucketerError.message = 'input.buffer not provided';
+		return output(bucketerError, null);
+	} else if (!input.name) {
+		bucketerError.message = 'input.name not provided';
+		return output(bucketerError, null);
+	} else if (!input.bucket) {
+		bucketerError.message = 'input.bucket not provided';
+		return output(bucketerError, null);
+	} else if (!input.mimetype) {
+		bucketerError.message = 'input.mimetype not provided';
+		return output(bucketerError, null);
+	}
 
 	var s3Pic = {
 		Body: input.buffer,
@@ -60,6 +91,19 @@ var colorArrGen = function (input) {
 	}
 };
 
+/**
+ * Takes key color from image and an average color.
+ * 
+ * @param  {object} input - Main input object containing buffer and parameters.
+ * @property {buffer} input.buffer - Image buffer.
+ * @property {string} input.mimetype - Image mimetype.
+ * 
+ * @callback  {object} output - Output object containing an error or colors sampled from image.
+ * @param {object} err - Contains the error object if there is an error.
+ * @param {object} colors - Contains colors if function successful.
+ * @property {array} colors.picColors - An array with up to 9 color values a hex strings.
+ * @property {array} colors.colorAverage - An Array with 3 numbers (0-255) for each RGB value.
+ */
 var colorPull = function (input, output) {
 	getPixels(input.buffer, input.mimetype, function (err, pixels) {
 		if (err) {
@@ -95,7 +139,7 @@ var resizer = function (input, output) {
 		output(resizerError, null);
 	} else {
 		if (!input.maxByte) {
-			input.maxByte = 104857600;
+			input.maxByte = 100000000;
 		}
 		var	fileSize = input.buffer.length;
 		const image = sharp(input.buffer);
@@ -246,6 +290,22 @@ var imgJunction = function (input, output) {
 	}
 };
 
+/**
+ * Resizes image proportionately or makes thumbnails.
+ * 
+ * @param  {object} input - Main input object containing buffer and parameters.
+ * @property {buffer} input.buffer - Image buffer.
+ * @property {string} input.mimetype - Image mimetype.
+ * @property {number} input.maxPixel - Desired maximum dimension in pixels. Largest side will not exceed this size.
+ * @property {number} input.maxByte - (Default: 100000000) File size in bytes over which resizing will occur.
+ * @property {boolean} input.thumb - (Optional) if true, maxByte is ignored and a square thumb based on maxPixel.
+ * 
+ * @callback  {object} output - Output object containing an error or resized image.
+ * @param {object} err - Contains the error object if there is an error.
+ * @param {object} resized - Input object with with buffer replaced by resized buffer.
+ * @property {buffer} resized.buffer - Resized mage buffer.
+ * @property {number} resized.size - Size of new buffer.
+ */
 var resizeAndCompress = function (input) {
 	if (!input.mimetype) {
 		throw new Error('mimetype not provided');

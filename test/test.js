@@ -4,6 +4,7 @@ const expect = require('chai').expect,
 	picPipe = require('../index'),
 	util = require('util'),
 	sharp = require('sharp'),
+	lal = require('lal'),
 	request = require('request').defaults({ encoding: null }),
 	testLocation = 'http://pics.vics.pics/test-images/',
 	largeJpgPort = testLocation + 'portrait-2448x3264.jpg',
@@ -18,26 +19,6 @@ const expect = require('chai').expect,
 	smallPngPort = testLocation + 'portrait-480x640.png',
 	smallPngLand = testLocation + 'landscape-640x480.png',
 	smallPngSqr = testLocation + 'square-640x640.png';
-
-var dateFormat = function () {
-	var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-		time = new Date(),
-		day = time.getDate(),
-		mm = time.getMonth(),
-		year = time.getFullYear(),
-		hr = time.getHours(),
-		min = time.getMinutes(),
-		month = monthArr[mm];
-
-	var clock = function () {
-		if (hr >= 12) {
-			var hour = hr - 12;
-			return hour + '.' + min + 'PM';
-		}
-		return hr + '.' + min + 'AM';
-	};
-	return month + day + '_' + year + '_' + clock();
-};
 
 var typeMsg = function (mime, format) {
 	console.log('input type: ' + mime + ', output type: ' + format);
@@ -129,6 +110,11 @@ var colorTest = function (options, done) {
 			mimetype: mimer(options.mime)
 		};
 		picPipe.colorPull(pic, function (err, colors) {
+			if (err) {
+				console.log('colorPull error:');
+				console.log(err);
+				done(err);
+			}
 			console.log('picColors:');
 			console.log(colors.picColors);
 			console.log('colorAverage:');
@@ -146,11 +132,16 @@ var bucketTest = function (options, done) {
 	request.get(options.url, function (err, res, body) {
 		var pic = {
 			buffer: body,
-			name: 'testing_dir/' + dateFormat() + '.' + options.mime,
+			name: 'testing_dir/' + lal.dateFormat() + '.' + options.mime,
 			bucket: process.env.S3_BUCKET,
 			mimetype: mimer(options.mime)
 		};
 		picPipe.bucketer(pic, function (err, uploaded) {
+			if (err) {
+				console.log('bucketer error:');
+				console.log(err);
+				done(err);
+			}
 			console.log('uploaded:');
 			console.log(uploaded);
 			expect(uploaded).to.include.keys('ETag');
@@ -159,7 +150,7 @@ var bucketTest = function (options, done) {
 	});
 };
 
-describe('#picPipe', function () {
+describe('picPipe resize and compress tests', function () {
 	this.timeout(20000);
 
 	var resizeComTxt = 'should resize/compress ';
@@ -319,6 +310,92 @@ describe('#picPipe', function () {
 			done(complete);
 		});
 	});
+});
+
+describe('thumbnail tests', function () {
+	this.timeout(20000);
+
+	var thumbTxt = 'should thumbnail ';
+
+	// thumbnail large JPG tests
+	it(thumbTxt + 'large portrait JPG', function (done) {
+		picTest({ url: largeJpgPort, orient: 'thumb', mime: 'jpeg' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	it(thumbTxt + 'large landscape JPG', function (done) {
+		picTest({ url: largeJpgLand, orient: 'thumb', mime: 'jpeg' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	it(thumbTxt + 'large square JPG', function (done) {
+		picTest({ url: largeJpgSqr, orient: 'thumb', mime: 'jpeg' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	// thumbnail large PNG tests
+	it(thumbTxt + 'large portrait PNG', function (done) {
+		picTest({ url: largePngPort, orient: 'thumb', mime: 'png' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	it(thumbTxt + 'large landscape PNG', function (done) {
+		picTest({ url: largePngLand, orient: 'thumb', mime: 'png' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	it(thumbTxt + 'large square PNG', function (done) {
+		picTest({ url: largePngSqr, orient: 'thumb', mime: 'png' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	// thumbnail small JPG tests
+	it(thumbTxt + 'small portrait JPG', function (done) {
+		picTest({ url: smallJpgPort, orient: 'thumb', mime: 'jpeg' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	it(thumbTxt + 'small landscape JPG', function (done) {
+		picTest({ url: smallJpgLand, orient: 'thumb', mime: 'jpeg' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	it(thumbTxt + 'small square JPG', function (done) {
+		picTest({ url: smallJpgSqr, orient: 'thumb', mime: 'jpeg' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	// thumbnail small PNG tests
+	it(thumbTxt + 'small portrait PNG', function (done) {
+		picTest({ url: smallPngPort, orient: 'thumb', mime: 'png' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	it(thumbTxt + 'small landscape PNG', function (done) {
+		picTest({ url: smallPngLand, orient: 'thumb', mime: 'png' }, function (complete) {
+			done(complete);
+		});
+	});
+
+	it(thumbTxt + 'small square PNG', function (done) {
+		picTest({ url: smallPngSqr, orient: 'thumb', mime: 'png' }, function (complete) {
+			done(complete);
+		});
+	});
+});
+
+describe('Color extraction tests', function () {
+	this.timeout(20000);
 
  	var colorTxt = 'should return a set of colors and an average color from ';
  	// color extracting tests
@@ -346,6 +423,17 @@ describe('#picPipe', function () {
 		});
 	});
 
+	// S3 uploading test
+
+	it('Should upload image to S3 returning an ETag', function (done) {
+		bucketTest({ url: smallPngSqr, mime: 'png' }, function (complete) {
+			done(complete);
+		});
+	});
+});
+
+describe('Uploading tests', function () {
+	this.timeout(20000);
 	// S3 uploading test
 
 	it('Should upload image to S3 returning an ETag', function (done) {

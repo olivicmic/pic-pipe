@@ -1,5 +1,5 @@
 # pic-pipe
-Pic-pipe is a set of tools for image buffers: Resizing based on orientation, automatically creating square thumbnails, compression within a desired filesize, extracting color values, uploading buffers to an AWS S3 bucket.
+Pic-pipe is a set of tools for image buffers: Resizing based on orientation, automatically creating square thumbnails, compression within a desired filesize, extracting color values, uploading buffers to an AWS S3 bucket. It uses a common input/output object format for interoperability between functions.
 
 If you need more precise control, or to work with non-buffers consider using the following libraries directly:
 
@@ -16,6 +16,117 @@ If you need more precise control, or to work with non-buffers consider using the
 ## Installation
 
 `npm install pic-pipe --save`
+
+## Usage
+
+### Resize images automatically by proportions. 
+
+`picPipe.resizeAndCompress(input, output);`
+
+Input:
+- `input.buffer {buffer}`: Image buffer.
+- `input.mimetype {string}`: A string with the file mimetype.
+- `input.maxPixel {number}`: Desired maximum dimension in pixels. Largest side will not exceed this size.
+- `input.maxByte {number}`: (Default: 100000000) File size in bytes over which resizing will occur.
+- `input.thumb {boolean}`: (Optional) if true, maxByte is ignored and a square thumb based on maxPixel.
+
+Output callback:
+- `Err {object}`: Contains the error object if there is an error.
+- `resized.buffer {buffer}`: Resized image buffer.
+- `resized.size {number}`: Size of new buffer.
+
+```Javascript
+
+myImage = {
+	buffer: [buffer],
+	mimetype: 'image/jpg',
+	maxPixel: 2500,
+	maxByte: 2500
+};
+
+picPipe.resizeAndCompress(myImage, function(err, colors) {
+	if (err) {
+		throw new Error(err);
+	}
+	console.log(colors);
+	// returns input object with resized buffer and size properties
+});
+
+```
+
+### Pull colors from image
+
+`picPipe.colorPull(input, output);`
+
+Input:
+- `input.buffer {buffer}`: Image buffer.
+- `input.maxPixel {string}`: A string with the image mimetype.
+
+Output callback:
+- `Err {object}`: Contains the error object if there is an error.
+- `colors.picColors {array}`: An array with up to 9 color values a hex strings.
+- `colors.colorAverage {array}`: An Array with 3 numbers (0-255) for each RGB value.
+
+```Javascript
+
+myImage = {
+	buffer: [buffer],
+	mimetype: 'image/jpg'
+};
+
+picPipe.colorPull(myImage, function(err, colors) {
+	if (err) {
+		throw new Error(err);
+	}
+	console.log(colors);
+	// returns 2 color arrays. Examples:
+	// picColors = ['777777', '888888', '999999', 'aaaaaa', 'bbbbbb', 'cccccc', 'dddddd', 'eeeeee', 'ffffff']
+	// colorAverage = [255, 255, 255]
+});
+
+```
+
+### Upload to S3 bucket
+
+`picPipe.bucketer(input, output);`
+
+InputL
+- `input.buffer {buffer}`: File buffer.
+- `input.name {string}`: A string with name of directory, filename, and extension.
+- `input.bucket {string}`: A string with the S3 bucket name.
+- `input.mimetype {string}`: A string with the file mimetype.
+
+Output callback:
+- `Err {object}`: Contains the error object if there is an error.
+- `uploaded.ETag {string}`: A string that confirms valid upload.
+- `uploaded.Key {string}`: A string with a directory, filename, extension of S3 upload.
+- `uploaded.Bucket {string}`: A string of the S3 bucket used.
+- `uploaded.ContentType {string}`: Mimetype of the uploaded file.
+
+AWS properties must also be set as enviromental parameters:
+
+- `export S3_KEY=YOUR KEY`
+- `export S3_SECRET=YOUR SECRET`
+- `export AWS_REGION=YOUR AWS REGION`
+
+```Javascript
+
+myFile = {
+	buffer: [buffer],
+	name: 'my-directory/myfile.jpg',
+	bucket: 'mybucket.amazonaws.com',
+	mimetype: 'image/jpg'
+};
+
+picPipe.bucketer(myFile, function(err, uploaded) {
+	if (err) {
+		throw new Error(err);
+	}
+	console.log(uploaded);
+	// returns object with ETag if successful
+});
+
+```
 
 ## Tests
 
