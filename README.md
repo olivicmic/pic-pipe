@@ -23,17 +23,17 @@ If you need more precise control, or to work with non-buffers consider using the
 
 `picPipe.resizeAndCompress(input, output);`
 
-Input:
+input:
 - `input.buffer {buffer}`: Image buffer.
 - `input.mimetype {string}`: A string with the file mimetype.
 - `input.maxPixel {number}`: Desired maximum dimension in pixels. Largest side will not exceed this size.
 - `input.maxByte {number}`: (Default: 100000000) File size in bytes over which resizing will occur.
 - `input.thumb {boolean}`: (Optional) if true, maxByte is ignored and a square thumb based on maxPixel.
 
-Output callback:
-- `Err {object}`: Contains the error object if there is an error.
-- `resized.buffer {buffer}`: Resized image buffer.
-- `resized.size {number}`: Size of new buffer.
+output callback:
+- `err {object}`: Contains the error object if there is an error.
+- `input.buffer {buffer}`: Resized image buffer.
+- `input.size {number}`: Size of new buffer.
 
 ```Javascript
 
@@ -58,14 +58,14 @@ picPipe.resizeAndCompress(myImage, function(err, colors) {
 
 `picPipe.colorPull(input, output);`
 
-Input:
+input:
 - `input.buffer {buffer}`: Image buffer.
 - `input.maxPixel {string}`: A string with the image mimetype.
 
-Output callback:
-- `Err {object}`: Contains the error object if there is an error.
-- `colors.picColors {array}`: An array with up to 9 color values a hex strings.
-- `colors.colorAverage {array}`: An Array with 3 numbers (0-255) for each RGB value.
+output callback:
+- `err {object}`: Contains the error object if there is an error.
+- `input.picColors {array}`: An array with up to 9 color values a hex strings.
+- `input.colorAverage {array}`: An Array with 3 numbers (0-255) for each RGB value.
 
 ```Javascript
 
@@ -90,24 +90,21 @@ picPipe.colorPull(myImage, function(err, colors) {
 
 `picPipe.bucketer(input, output);`
 
-InputL
+input
 - `input.buffer {buffer}`: File buffer.
 - `input.name {string}`: A string with name of directory, filename, and extension.
 - `input.bucket {string}`: A string with the S3 bucket name.
 - `input.mimetype {string}`: A string with the file mimetype.
 
-Output callback:
-- `Err {object}`: Contains the error object if there is an error.
-- `uploaded.ETag {string}`: A string that confirms valid upload.
-- `uploaded.Key {string}`: A string with a directory, filename, extension of S3 upload.
-- `uploaded.Bucket {string}`: A string of the S3 bucket used.
-- `uploaded.ContentType {string}`: Mimetype of the uploaded file.
+output callback:
+- `err {object}`: Contains the error object if there is an error.
+- `input.eTag {string}`: An added string that confirms valid upload.
 
 AWS properties must also be set as enviromental parameters:
 
-- `export S3_KEY=YOUR KEY`
-- `export S3_SECRET=YOUR SECRET`
-- `export AWS_REGION=YOUR AWS REGION`
+- `process.env.S3_KEY`
+- `process.env.S3_SECRET`
+- `process.env.AWS_REGION`
 
 ```Javascript
 

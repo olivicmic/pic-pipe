@@ -34,11 +34,8 @@ var s3Up = function (uploadObj, response) {
  * 
  * @callback {object} output - Output object containing an error or what was uploaded.
  * @param {object} err - Contains the error object if there is an error.
- * @param {object} uploaded - Contains confimation and summary of what was uploaded.
- * @property {string} uploaded.ETag - A string that confirms valid upload.
- * @property {string} uploaded.Key - A string with a directory, filename, extension of S3 upload.
- * @property {string} uploaded.Bucket - A string of the S3 bucket used.
- * @property {string} uploaded.ContentType - Mimetype of the uploaded file.
+ * @param {object} input - Contains the initial input object with an added eTag property.
+ * @property {string} input.eTag - A string that confirms valid upload.
  */
 var bucketer = function (input, output) {
 	const bucketerError = new Error();
@@ -67,11 +64,8 @@ var bucketer = function (input, output) {
 		if (err) {
 			return output(err, null);
 		}
-		var uploaded = mainData;
-		uploaded.Key = s3Pic.Key;
-		uploaded.Bucket = s3Pic.Bucket;
-		uploaded.ContentType = s3Pic.ContentType;
-		return output(null, uploaded);
+		input.eTag = mainData.ETag;
+		return output(null, input);
 	});
 };
 
@@ -100,7 +94,7 @@ var colorArrGen = function (input) {
  * 
  * @callback  {object} output - Output object containing an error or colors sampled from image.
  * @param {object} err - Contains the error object if there is an error.
- * @param {object} colors - Contains colors if function successful.
+ * @param {object} input - Contains the initial input object with color properties.
  * @property {array} colors.picColors - An array with up to 9 color values a hex strings.
  * @property {array} colors.colorAverage - An Array with 3 numbers (0-255) for each RGB value.
  */
@@ -119,10 +113,9 @@ var colorPull = function (input, output) {
 			count: 1,
 			type: 'average'
 		});
-		return output(null, {
-			picColors: picColors,
-			colorAverage: colorAverage[0]
-		});
+		input.picColors = picColors;
+		input.colorAverage = colorAverage[0];
+		return output(null, input);
 	});
 };
 

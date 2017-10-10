@@ -144,7 +144,7 @@ var bucketTest = function (options, done) {
 			}
 			console.log('uploaded:');
 			console.log(uploaded);
-			expect(uploaded).to.include.keys('ETag');
+			expect(uploaded).to.include.keys('eTag');
 			done();
 		});
 	});
