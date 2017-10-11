@@ -30,7 +30,7 @@ input:
 - `input.maxByte {number}`: (Default: 100000000) File size in bytes over which resizing will occur.
 - `input.thumb {boolean}`: (Optional) if true, maxByte is ignored and a square thumb based on maxPixel.
 
-output callback:
+output returns a promise for asynchronous purposes due to potentially resizing large images. Use .then for success and .catch and errors:
 - `err {object}`: Contains the error object if there is an error.
 - `input.buffer {buffer}`: Resized image buffer.
 - `input.size {number}`: Size of new buffer.
@@ -44,13 +44,14 @@ myImage = {
 	maxByte: 2500
 };
 
-picPipe.resizeAndCompress(myImage, function(err, colors) {
-	if (err) {
-		throw new Error(err);
-	}
-	console.log(colors);
-	// returns input object with resized buffer and size properties
-});
+picPipe.resizeAndCompress(myImage)
+	.then(function (resized) {
+		console.log(resized.buffer); // returns buffer object
+		console.log(resized.size); // returns a number of bytes
+	})
+	.catch(function (err) {
+		console.log(err); // returns an error object
+	});
 
 ```
 

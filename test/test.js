@@ -99,6 +99,10 @@ var picTest = function (options, done) {
 						}
 						done();
 					});
+			})
+			.catch(function (err) {
+				console.log(err);
+				done(err);
 			});
 	});
 };

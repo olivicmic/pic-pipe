@@ -13,13 +13,17 @@ AWS.config.update({
 	region: process.env.AWS_REGION
 });
 
+var bucErr = function (val) {
+	var dot = '.';
+	if (!val) dot = '';
+	return new Error('input' + dot + val + ' not provided');
+};
+
 var s3Up = function (uploadObj, response) {
 	var s3 = new AWS.S3();
 	s3.putObject(uploadObj, function (err, data) {
-		if (err) {
-			response(err, null);
-		}
-		response(null, data);
+		if (err) return response(err, null);
+		return response(null, data);
 	});
 };
 
@@ -38,20 +42,10 @@ var s3Up = function (uploadObj, response) {
  * @property {string} input.eTag - A string that confirms valid upload.
  */
 var bucketer = function (input, output) {
-	const bucketerError = new Error();
-	if (!input.buffer || input.buffer.length <= 0) {
-		bucketerError.message = 'input.buffer not provided';
-		return output(bucketerError, null);
-	} else if (!input.name) {
-		bucketerError.message = 'input.name not provided';
-		return output(bucketerError, null);
-	} else if (!input.bucket) {
-		bucketerError.message = 'input.bucket not provided';
-		return output(bucketerError, null);
-	} else if (!input.mimetype) {
-		bucketerError.message = 'input.mimetype not provided';
-		return output(bucketerError, null);
-	}
+	if (!input.buffer || input.buffer.length <= 0) return output(bucErr('buffer'), null);
+	else if (!input.name) return output(bucErr('name'), null);
+	else if (!input.bucket) return output(bucErr('bucket'), null);
+	else if (!input.mimetype) return output(bucErr('mimetype'), null);
 
 	var s3Pic = {
 		Body: input.buffer,
@@ -100,9 +94,8 @@ var colorArrGen = function (input) {
  */
 var colorPull = function (input, output) {
 	getPixels(input.buffer, input.mimetype, function (err, pixels) {
-		if (err) {
-			throw new Error(err);
-		}
+		if (err) throw new Error(err);
+
 		var picColors = colorArrGen({
 			pixels: pixels,
 			count: 9,
@@ -120,102 +113,60 @@ var colorPull = function (input, output) {
 };
 
 var resizer = function (input, output) {
-	const resizerError = new Error();
-	if (!input) {
-		resizerError.message = 'No input given to resizer.';
-		output(resizerError, null);
-	} else if (!input.buffer.length || input.buffer.length === 0) {
-		resizerError.message = 'Undefined or empty buffer given to resizer.';
-		output(resizerError, null);
-	} else if (!input.maxPixel) {
-		resizerError.message = 'maxPixel not given to resizer.';
-		output(resizerError, null);
-	} else {
-		if (!input.maxByte) {
-			input.maxByte = 100000000;
-		}
-		var	fileSize = input.buffer.length;
-		const image = sharp(input.buffer);
-		sharp(input.buffer)
-			.metadata()
-			.then(function (meta) {
-				if (input.thumb === true) {
-					image
-						.resize(input.maxPixel, input.maxPixel)
-						.rotate()
-						.crop('center')
-						.toBuffer(function (err, data) {
-							if (err) {
-								output(err, null);
-							}
-							input.buffer = data;
-							input.size = data.length;
-							return output(null, input);
-						});
-				} else if (fileSize <= input.maxByte) {
-					image
-						.rotate()
-						.toBuffer(function (err, data) {
-							input.buffer = data;
-							input.size = data.length;
-							return output(null, input);
-						});
-				} else if (meta.width > meta.height) {
-					// landscape
-					image
-						.resize(input.maxPixel, null)
-						.rotate()
-						.toBuffer(function (err, data) {
-							if (err) {
-								return output(err, null);
-							}
-							input.buffer = data;
-							input.size = data.length;
-							return output(null, input);
-						});
-				} else if (meta.height > meta.width) {
-					// portrait
-					image
-						.resize(null, input.maxPixel)
-						.rotate()
-						.toBuffer(function (err, data) {
-							if (err) {
-								return output(err, null);
-							}
-							input.buffer = data;
-							input.size = data.length;
-							return output(null, input);
-						});
-				} else {
-					// square
-					image
-						.resize(input.maxPixel, input.maxPixel)
-						.rotate()
-						.toBuffer(function (err, data) {
-							if (err) {
-								return output(err, null);
-							}
-							input.buffer = data;
-							input.size = data.length;
-							return output(null, input);
-						});
-				}
-			});
-	}
+	var resizeMethod,
+		img = sharp(input.buffer),
+		imgMetaScan = img.metadata(),
+		fileSize = input.buffer.length;
+
+	if (!input.maxByte) input.maxByte = 100000000;
+
+	imgMetaScan
+		.then(function (meta) {
+			if (input.thumb === true) resizeMethod = img
+				.resize(input.maxPixel, input.maxPixel)
+				.rotate()
+				.crop('center'); // thumbnail
+			else if (fileSize <= input.maxByte) resizeMethod = img
+				.rotate(); // undersized
+			else if (meta.width > meta.height) resizeMethod = img
+				.resize(input.maxPixel, null)
+				.rotate(); // landscape
+			else if (meta.height > meta.width) resizeMethod = img
+				.resize(null, input.maxPixel)
+				.rotate(); // portrait
+			else resizeMethod = img
+				.resize(input.maxPixel, input.maxPixel)
+				.rotate(); // square
+
+			resizeMethod
+				.toBuffer(function (err, data) {
+					if (err) return output(err, null);
+					input.buffer = data;
+					input.size = data.length;
+					return output(null, input);
+				});
+		});
+};
+
+var resizeValidate = function (input, output) {
+	if (!input) return output(bucErr(), null);
+	else if (!input.buffer.length || input.buffer.length === 0) return output(bucErr('buffer'), null);
+	else if (!input.maxPixel) return output(bucErr('maxPixel'), null);
+
+	resizer(input, function (err, resized) {
+		if (err) return output(err, null);
+		return output(null, input);
+	});
 };
 
 var jpgCompress = function (input, output) {
 	return new Blue(function (resolve, reject) {
-		if (!input.compressLevel) {
-			input.compressLevel = 1;
-		}
+		if (!input.compressLevel) input.compressLevel = 1;
 		var compressLevel = input.compressLevel * 10;
 		sharp(input.buffer)
 			.jpeg({ quality: compressLevel })
 			.toBuffer(function (err, data) {
-				if (err) {
-					reject(err);
-				}
+				if (err) reject(err);
 				input.buffer = data;
 				input.size = data.length;
 				resolve(input);
@@ -229,9 +180,7 @@ var pngCompress = function (input, output) {
 		sharp(input.buffer)
 			.png({ compressionLevel: compressLevel })
 			.toBuffer(function (err, data) {
-				if (err) {
-					return output(err, null);
-				}
+				if (err) return output(err, null);
 				input.buffer = data;
 				input.size = data.length;
 				return output(null, input);
@@ -271,14 +220,12 @@ var jpgLoop = function (input) {
 var imgJunction = function (input, output) {
 	if (input.mimetype === ('image/jpeg' || 'image/jpg')) {
 		jpgLoop(input).then(function (compressed) {
-			output(null, compressed);
+			return output(null, compressed);
 		});
 	} else if (input.mimetype === 'image/png') {
 		pngCompress(input, function (err, compressed) {
-			if (err) {
-				output(err, null);
-			}
-			output(null, compressed);
+			if (err) return output(err, null);
+			return output(null, compressed);
 		});
 	}
 };
@@ -293,29 +240,25 @@ var imgJunction = function (input, output) {
  * @property {number} input.maxByte - (Default: 100000000) File size in bytes over which resizing will occur.
  * @property {boolean} input.thumb - (Optional) if true, maxByte is ignored and a square thumb based on maxPixel.
  * 
- * @callback  {object} output - Output object containing an error or resized image.
+ * @callback  {object} output: utilizes promises for asyncronous purposes. Use .then and .catch
  * @param {object} err - Contains the error object if there is an error.
  * @param {object} resized - Input object with with buffer replaced by resized buffer.
  * @property {buffer} resized.buffer - Resized mage buffer.
  * @property {number} resized.size - Size of new buffer.
  */
 var resizeAndCompress = function (input) {
-	if (!input.mimetype) {
-		throw new Error('mimetype not provided');
-	}
+	if (!input.mimetype) throw new Error('mimetype not provided');
 	return new Blue(function (resolve, reject) {
-		resizer(input, function (err, resized) {
-			if (err) {
-				reject(err);
-			} else {
+		resizeValidate(input, function (err, resized) {
+			if (err) reject(err);
+			else {
 				input.buffer = resized.buffer;
 				if (!input.thumb) { // not a thumb, or filesize too large
 					imgJunction(input, function (err, compressed) {
 						resolve(compressed);
 					});
-				} else { // a thumb, or within filesize limit
-					resolve(resized);
 				}
+				resolve(resized); // a thumb, or within filesize limit			
 			}
 		});
 	});
