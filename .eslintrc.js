@@ -34,22 +34,18 @@ module.exports = {
 	'no-unused-vars': 0,
 	'no-use-before-define': [1, 'nofunc'],
 	'no-var': 0,
-	'object-curly-spacing': [2, 'always'],
+	'object-curly-spacing': 0,
 	'one-var': [0, 'never'],
 	'one-var-declaration-per-line': [2, 'always'],
 	'padded-blocks': 0,
-	'space-before-function-paren': ['error', {
-	  'anonymous': 'always',
-	  'named': 'never',
-	  'asyncArrow': 'always'
-	}],
+	'space-before-function-paren': [0, 'ignore'],
 	'space-in-parens': [2, 'never'],
-	'spaced-comment': [2, 'always'],
+	'spaced-comment': 0,
 	strict: 0,
 	'quote-props': 0,
 	quotes: [1, 'single'],
 	'wrap-iife': [2, 'outside'],
-	'vars-on-top': 0
+	'vars-on-top': 0,
   },
   env: {
 	node: true,
@@ -72,5 +68,8 @@ module.exports = {
 	__TESTING__: true,
 	_: false,
 	ApplicationConfiguration: true
-  }
+  },
+	'parserOptions': {
+		'ecmaVersion': 2018
+	}
 };

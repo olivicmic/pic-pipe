@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# test image folder (put your own test images here)
+/test_images
+
+# test image folder (put your own test images here)
+/outputimg

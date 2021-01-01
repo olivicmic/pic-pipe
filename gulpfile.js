@@ -1,12 +1,9 @@
 var mainFile = require('./index.js'),
 	gulp = require('gulp'),
-	runSequence = require('run-sequence'),
 	plugins = require('gulp-load-plugins')();
 
-gulp.task('watch', function () {
-	// Start livereload
-	plugins.refresh.listen({ port: 1337 });
-	gulp.watch(['**/*.js', '!node_modules/**'], ['eslint']).on('change', plugins.refresh.changed);
+gulp.task('watch', function() {
+	gulp.watch(['**/*.js', '!node_modules/**'], gulp.series('eslint'));
 });
 
 // ESLint JS linting task
@@ -17,6 +14,6 @@ gulp.task('eslint', function () {
 		.pipe(plugins.eslint.format());
 });
 
-gulp.task('default', function (done) {
-	runSequence(['watch'], done);
-});
+gulp.task('default', gulp.series('watch', function (done) {
+	done();
+}));

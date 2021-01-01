@@ -1,447 +1,64 @@
 'use strict';
-
-const expect = require('chai').expect,
+const fs = require('fs'),
+	expect = require('chai').expect,
 	picPipe = require('../index'),
 	util = require('util'),
-	sharp = require('sharp'),
 	lal = require('lal'),
-	request = require('request').defaults({ encoding: null }),
-	testLocation = 'http://pics.vics.pics/test-images/',
-	largeJpgPort = testLocation + 'portrait-2448x3264.jpg',
-	largeJpgLand = testLocation + 'landscape-3264x2448.jpg',
-	largeJpgSqr = testLocation + 'square-2448x2448.jpg',
-	largePngPort = testLocation + 'portrait-2448x3264.png',
-	largePngLand = testLocation + 'landscape-3264x2448.png',
-	largePngSqr = testLocation + 'square-2448x2448.png',
-	smallJpgPort = testLocation + 'portrait-960x1280.jpg',
-	smallJpgLand = testLocation + 'landscape-1280x960.jpg',
-	smallJpgSqr = testLocation + 'square-1280x1280.jpg',
-	smallPngPort = testLocation + 'portrait-480x640.png',
-	smallPngLand = testLocation + 'landscape-640x480.png',
-	smallPngSqr = testLocation + 'square-640x640.png';
+	picTest = require('./PicTest'),
+	colorTest = require('./ColorTest'),
+	bucketTest = require('./BucketTest'),
+	Testimages = require('./Testimages');
 
-var typeMsg = function (mime, format) {
-	console.log('input type: ' + mime + ', output type: ' + format);
-};
+const typeMsg = (mime, format) => console.log('input type: ' + mime + ', output type: ' + format);
+const orientMsg = (type, width, height) => console.log('is ' + type + ' - width: ' + width + ', height: ' + height);
+const unique = lal.generateUnique();
 
-var orientMsg = function (type, width, height) {
-	console.log('is ' + type + ' - width: ' + width + ', height: ' + height);
-};
-
-var mimer = function (mime) {
-	if (mime === 'jpeg' || mime === 'jpg') {
-		return 'image/jpeg';
-	}
-	if (mime === 'png') {
-		return 'image/png';
-	}
-	throw new Error('invalid mimetype');
-};
-
-var picTest = function (options, done) {
-	request.get(options.url, (err, res, body) => {
-
-		var pic = {
-			maxPixel: 2500,
-			maxByte: 500000,
-			compressTries: 5,
-			compressLevel: 10,
-			buffer: body,
-			size: body.length,
-			mimetype: mimer(options.mime)
-		}
-
-		if (options.orient === 'thumb') {
-			pic.maxPixel = 200;
-			pic.thumb = true;
-		}
-
-		const originalSize = pic.size;
-		console.log('original size: ' + originalSize);
-
-		picPipe.resizeAndCompress(pic)
-			.then((output) => {
-				console.log('new size: ' + output.buffer.length);
-				if ((originalSize > pic.maxByte) || (options.orient === 'thumb')) {
-					expect(output.buffer.length).to.be.below(originalSize);
-				} else {
-					expect(output.buffer.length).to.be.at.most(originalSize);
-				}
-				sharp(output.buffer)
-					.metadata()
-					.then((meta) => {
-						if (options.mime === 'jpeg') {
-							typeMsg(options.mime, meta.format);
-							expect(meta.format).to.equal(options.mime);
-						}
-						if (options.mime === 'png') {
-							typeMsg(options.mime, meta.format);
-							expect(meta.format).to.equal(options.mime);
-						}
-						if (options.orient === 'port') {
-							console.log('max dimension: ' + pic.maxPixel);
-							orientMsg(options.orient, meta.width, meta.height);
-							expect(meta.height).to.be.at.most(pic.maxPixel);
-							expect(meta.width).to.be.below(meta.height);
-						}
-						if (options.orient === 'land') {
-							console.log('max dimension: ' + pic.maxPixel);
-							orientMsg(options.orient, meta.width, meta.height);
-							expect(meta.width).to.be.at.most(pic.maxPixel);
-							expect(meta.height).to.be.below(meta.width);
-						}
-						if ((options.orient === 'square') || options.orient === 'thumb') {
-							console.log('max dimension: ' + pic.maxPixel);
-							orientMsg(options.orient, meta.width, meta.height);
-							expect(meta.height).to.be.at.most(pic.maxPixel);
-							expect(meta.width).to.be.at.most(pic.maxPixel);
-							expect(meta.height).to.equal(meta.width);
-						}
-						done();
-					});
-			})
-			.catch((err) => {
-				console.log(err);
-				done(err);
-			});
-	});
-};
-
-var colorTest = function (options, done) {
-	request.get(options.url, (err, res, body) => {
-		var pic = {
-			buffer: body,
-			mimetype: mimer(options.mime)
-		};
-		picPipe.colorPull(pic, (err, colors) => {
-			if (err) {
-				console.log('colorPull error:');
-				console.log(err);
-				done(err);
-			}
-			console.log('picColors:');
-			console.log(colors.picColors);
-			console.log('colorAverage:');
-			console.log(colors.colorAverage);
-			expect(colors.picColors.length).to.be.above(1);
-			expect(colors.picColors.length).to.be.at.most(9);
-			expect(colors.colorAverage.length).to.equal(3);
-			done();
+const initTest = (input) => {
+	let doTest = (input.mode === 'color') ? colorTest : picTest;
+	it(input.message + ' ' + input.detail, (done) => {
+		doTest({...input, unique: unique }, (complete) => {
+			done(complete);
 		});
 	});
 };
 
+const imageSet = Testimages.makePaths({
+	types: ['jpeg', 'png'],
+	orient: ['portrait', 'landscape', 'square'],
+	size: ['large', 'small']
+});
 
-var bucketTest = function (options, done) {
-	request.get(options.url, (err, res, body) => {
-		var pic = {
-			buffer: body,
-			name: 'testing_dir/' + lal.dateFormat() + '.' + options.mime,
-			bucket: process.env.S3_BUCKET,
-			mimetype: mimer(options.mime)
-		};
-		picPipe.bucketer(pic, (err, uploaded) => {
-			if (err) {
-				console.log('bucketer error:');
-				console.log(err);
-				done(err);
-			}
-			console.log('uploaded:');
-			console.log(uploaded);
-			expect(uploaded).to.include.keys('eTag');
-			done();
-		});
-	});
-};
-
-describe('picPipe resize and compress tests', function () {
+describe('picPipe resize tests', function () {
 	this.timeout(20000);
-
-	var resizeComTxt = 'should resize/compress ';
-
-	// full size JPG tests
-	it(resizeComTxt + 'large portrait JPG', (done) => {
-		picTest({ url: largeJpgPort, orient: 'port', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(resizeComTxt + 'large landscape JPG', (done) => {
-		picTest({ url: largeJpgLand, orient: 'land', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(resizeComTxt + 'large square JPG', (done) => {
-		picTest({ url: largeJpgSqr, orient: 'square', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	// full size PNG tests
-	it(resizeComTxt + 'large portrait PNG', (done) => {
-		picTest({ url: largePngPort, orient: 'port', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(resizeComTxt + 'large landscape PNG', (done) => {
-		picTest({ url: largePngLand, orient: 'land', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(resizeComTxt + 'large square PNG', (done) => {
-		picTest({ url: largePngSqr, orient: 'square', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	var noComTxt = 'should not resize/compress ';
-
-	// Small JPGs - under byte limit and should not resize
-	it(noComTxt + 'small portrait JPG', (done) => {
-		picTest({ url: smallJpgPort, orient: 'port', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(noComTxt + 'small landscape JPG', (done) => {
-		picTest({ url: smallJpgLand, orient: 'land', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(noComTxt + 'small square JPG', (done) => {
-		picTest({ url: smallJpgSqr, orient: 'square', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	// Small PNGs - under byte limit and should not resize
-	it(noComTxt + 'small portrait PNG', (done) => {
-		picTest({ url: smallPngPort, orient: 'port', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(noComTxt + 'small landscape PNG', (done) => {
-		picTest({ url: smallPngLand, orient: 'land', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(noComTxt + 'small square PNG', (done) => {
-		picTest({ url: smallPngSqr, orient: 'square', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	var thumbTxt = 'should thumbnail ';
-
-	// thumbnail large JPG tests
-	it(thumbTxt + 'large portrait JPG', (done) => {
-		picTest({ url: largeJpgPort, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'large landscape JPG', (done) => {
-		picTest({ url: largeJpgLand, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'large square JPG', (done) => {
-		picTest({ url: largeJpgSqr, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	// thumbnail large PNG tests
-	it(thumbTxt + 'large portrait PNG', (done) => {
-		picTest({ url: largePngPort, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'large landscape PNG', (done) => {
-		picTest({ url: largePngLand, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'large square PNG', (done) => {
-		picTest({ url: largePngSqr, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	// thumbnail small JPG tests
-	it(thumbTxt + 'small portrait JPG', (done) => {
-		picTest({ url: smallJpgPort, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'small landscape JPG', (done) => {
-		picTest({ url: smallJpgLand, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'small square JPG', (done) => {
-		picTest({ url: smallJpgSqr, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	// thumbnail small PNG tests
-	it(thumbTxt + 'small portrait PNG', (done) => {
-		picTest({ url: smallPngPort, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'small landscape PNG', (done) => {
-		picTest({ url: smallPngLand, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'small square PNG', (done) => {
-		picTest({ url: smallPngSqr, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
+	imageSet.map((image, i) => initTest({
+		...Testimages.makeOptions({file: image}),
+		message: 'should resize/compress'
+	}));
 });
 
 describe('thumbnail tests', function () {
 	this.timeout(20000);
+	imageSet.map((image, i) => initTest({
+		...Testimages.makeOptions({file: image, orient: 'thumb'}),
+		message: 'should thumbnail'
+	}));
 
-	var thumbTxt = 'should thumbnail ';
-
-	// thumbnail large JPG tests
-	it(thumbTxt + 'large portrait JPG', (done) => {
-		picTest({ url: largeJpgPort, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'large landscape JPG', (done) => {
-		picTest({ url: largeJpgLand, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'large square JPG', (done) => {
-		picTest({ url: largeJpgSqr, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	// thumbnail large PNG tests
-	it(thumbTxt + 'large portrait PNG', (done) => {
-		picTest({ url: largePngPort, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'large landscape PNG', (done) => {
-		picTest({ url: largePngLand, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'large square PNG', (done) => {
-		picTest({ url: largePngSqr, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	// thumbnail small JPG tests
-	it(thumbTxt + 'small portrait JPG', (done) => {
-		picTest({ url: smallJpgPort, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'small landscape JPG', (done) => {
-		picTest({ url: smallJpgLand, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'small square JPG', (done) => {
-		picTest({ url: smallJpgSqr, orient: 'thumb', mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	// thumbnail small PNG tests
-	it(thumbTxt + 'small portrait PNG', (done) => {
-		picTest({ url: smallPngPort, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'small landscape PNG', (done) => {
-		picTest({ url: smallPngLand, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(thumbTxt + 'small square PNG', (done) => {
-		picTest({ url: smallPngSqr, orient: 'thumb', mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
 });
 
 describe('Color extraction tests', function () {
 	this.timeout(20000);
+ 	imageSet.map((image, i) => initTest({
+		...Testimages.makeOptions({file: image}),
+		message: 'should return a set of colors and an average color from',
+		mode: 'color'
+	}));
 
- 	var colorTxt = 'should return a set of colors and an average color from ';
- 	// color extracting tests
-	it(colorTxt + 'large jpg', (done) => {
-		colorTest({ url: largeJpgSqr, mime: 'jpg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(colorTxt + 'large png', (done) => {
-		colorTest({ url: largePngSqr, mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(colorTxt + 'small jpg', (done) => {
-		colorTest({ url: smallJpgSqr, mime: 'jpeg' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	it(colorTxt + 'small png', (done) => {
-		colorTest({ url: smallPngSqr, mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
-
-	// S3 uploading test
-
-	it('Should upload image to S3 returning an ETag', (done) => {
-	 	bucketTest({ url: smallPngSqr, mime: 'png' }, (complete) => {
-			done(complete);
-		});
-	});
 });
 
 describe('Uploading tests', function () {
 	this.timeout(20000);
-	// S3 uploading test
-
 	it('Should upload image to S3 returning an ETag', (done) => {
-		bucketTest({ url: smallPngSqr, mime: 'png' }, (complete) => {
+		bucketTest(Testimages.makeOptions({file: imageSet[0]}), (complete) => {
 			console.log('\x07');
 			done(complete);
 		});

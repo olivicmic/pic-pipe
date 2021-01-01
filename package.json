@@ -1,6 +1,6 @@
 {
   "name": "pic-pipe",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Tasks for working with pictures",
   "main": "index.js",
   "scripts": {
@@ -20,23 +20,18 @@
   },
   "homepage": "https://github.com/olivicmic/pic-pipe#readme",
   "devDependencies": {
-    "chai": "^4.1.2",
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.0",
-    "gulp-load-plugins": "^1.5.0",
-    "gulp-refresh": "^1.1.0",
-    "mocha": "^3.5.3",
-    "run-sequence": "^2.2.0"
+    "chai": "^4.2.0",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "^6.0.0",
+    "gulp-load-plugins": "^1.6.0",
+    "mocha": "^8.2.1"
   },
   "dependencies": {
-    "aws-sdk": "^2.126.0",
-    "bluebird": "^3.5.0",
-    "chroma-js": "^1.3.4",
-    "get-pixels": "^3.3.0",
+    "aws-sdk": "^2.815.0",
+    "chroma-js": "^1.4.1",
+    "get-pixels": "^3.3.2",
     "get-rgba-palette": "^2.0.1",
-    "lal": "^0.1.0",
-    "request": "^2.83.0",
-    "sharp": "^0.18.4",
-    "util": "^0.10.3"
+    "lal": "^0.6.0",
+    "sharp": "^0.26.3"
   }
 }
