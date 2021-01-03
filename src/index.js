@@ -12,7 +12,8 @@ AWS.config.update({
 	region: process.env.AWS_REGION
 });
 
-
+const badBuffer = (input) => (!input || input.length <= 0 || !Buffer.isBuffer(input));
+const formatErr = (val) => new Error(`input${val ? '.' : ''}${val} not provided`);
 /**
  * Uploads objects with image buffer to S3.
  *
@@ -28,34 +29,33 @@ AWS.config.update({
  * @property {string} input.eTag - A string that confirms valid upload.
  */
 
-const bucErr = (val) => new Error(`input${val ? '.' : ''}${val} not provided`);
-function bucketer(input, output) {
-	if (!input.buffer || input.buffer.length <= 0) return output(bucErr('buffer'), null);
-	else if (!input.name) return output(bucErr('name'), null);
-	else if (!input.bucket) return output(bucErr('bucket'), null);
-	else if (!input.mimetype) return output(bucErr('mimetype'), null);
+const s3Up = (input) => new Promise((s3Resolve, s3Reject) => {
+	new AWS.S3().putObject(input, (err, data) => {
+		if (err) s3Reject(err);
+		s3Resolve(data);
+	});
+});
 
-	let s3Pic = {
+const bucketer = (input) => new Promise((bucketResolve, bucketReject) => {
+	if (badBuffer(input.buffer)) bucketReject(formatErr('buffer'));
+	else if (!input.name) bucketReject(formatErr('name'));
+	else if (!input.bucket) bucketReject(formatErr('bucket'));
+	else if (!input.mimetype) bucketReject(formatErr('mimetype'));
+
+	s3Up({
 		Body: input.buffer,
 		Key: input.name,
 		Bucket: input.bucket,
 		ContentType: input.mimetype
-	};
-
-	s3Up(s3Pic, (err, mainData) => {
-		if (err) return output(err, null);
-		input.eTag = mainData.ETag;
-		return output(null, input);
-	});
-}
-
-function s3Up(uploadObj, response) {
-	var s3 = new AWS.S3();
-	s3.putObject(uploadObj, (err, data) => {
-		if (err) return response(err, null);
-		return response(null, data);
-	});
-}
+	})
+		.then((mainData) => {
+			input.eTag = mainData.ETag;
+			bucketResolve(input);
+		})
+		.catch((err) => {
+			if (err) return bucketReject(err);
+		})
+});
 
 /**
  * Takes key color from image and an average color.
@@ -123,9 +123,9 @@ function colorArrGen(input) {
  */
 
 const resizeAndCompress = (input) => new Promise((resolve, reject) => {
-	if (!input) reject(bucErr());
-	else if (!input.buffer.length || input.buffer.length === 0) reject(bucErr('buffer'));
-	else if (!input.maxPixel) reject(bucErr('maxPixel'));
+	if (!input) reject(formatErr());
+	else if (badBuffer(input.buffer)) reject(formatErr('buffer'));
+	else if (!input.maxPixel) reject(formatErr('maxPixel'));
 	resizer(input)
 		.then((resized) => imgJunction(resized))
 		.then((compressed) => resolve(compressed));

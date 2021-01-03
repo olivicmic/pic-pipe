@@ -1,6 +1,7 @@
 'use strict';
 const fs = require('fs'),
 	expect = require('chai').expect,
+	assert = require('chai').assert,
 	picPipe = require('../index'),
 	util = require('util'),
 	lal = require('lal'),
@@ -62,5 +63,39 @@ describe('Uploading tests', function () {
 			console.log('\x07');
 			done(complete);
 		});
+	});
+});
+
+
+
+describe('error tests', function () {
+	this.timeout(20000);
+	it('Should error with non-buffer', (done) => {
+		picPipe.resizeAndCompress({
+			buffer: 'nothing',
+			thumb: true,
+			maxPixel: 768
+		})
+			.then((yah) => {})
+			.catch((error) => {
+				expect(error).to.not.be.null;
+	          	expect(error).to.not.be.undefined;
+	          	expect(error.message).to.equal('input.buffer not provided');
+				done();
+			});
+	});
+
+	it('Should error with undefined buffer', (done) => {
+		picPipe.resizeAndCompress({
+			thumb: true,
+			maxPixel: 768
+		})
+			.then((yah) => {})
+			.catch((error) => {
+				expect(error).to.not.be.null;
+	          	expect(error).to.not.be.undefined;
+	          	expect(error.message).to.equal('input.buffer not provided');
+				done();
+			});
 	});
 });

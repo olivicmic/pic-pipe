@@ -89,7 +89,7 @@ picPipe.colorPull(myImage, function(err, colors) {
 
 ### Upload to S3 bucket
 
-`picPipe.bucketer(input, output);`
+`picPipe.bucketer(input).then(...);`
 
 input
 - `input.buffer {buffer}`: File buffer.
@@ -97,9 +97,9 @@ input
 - `input.bucket {string}`: A string with the S3 bucket name.
 - `input.mimetype {string}`: A string with the file mimetype.
 
-output callback:
+output:
 - `err {object}`: Contains the error object if there is an error.
-- `input.eTag {string}`: An added string that confirms valid upload.
+- `output.eTag {string}`: An added string that confirms valid upload.
 
 AWS properties must also be set as enviromental parameters:
 
@@ -116,13 +116,13 @@ myFile = {
 	mimetype: 'image/jpg'
 };
 
-picPipe.bucketer(myFile, function(err, uploaded) {
-	if (err) {
+picPipe.bucketer(myFile)
+	.then((uploaded) => { // returns object with ETag if successful
+		console.log(uploaded);
+	})
+	.catch((error) => {
 		throw new Error(err);
-	}
-	console.log(uploaded);
-	// returns object with ETag if successful
-});
+	});
 
 ```
 

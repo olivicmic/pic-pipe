@@ -1,5 +1,12 @@
+# pic-pipe 3.0.0 Release Notes
+## Jan 2, 2021
+
+## New Features
+
+* **Promise-based bucketing** - pic-pipe.bucketer is now promised-based versus callbacks
+
 # pic-pipe 2.0.0 Release Notes
-## Jan 1, 2020
+## Jan 1, 2021
 
 ## New Features
 

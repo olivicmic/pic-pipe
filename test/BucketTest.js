@@ -6,22 +6,19 @@ const fs = require('fs'),
 
 module.exports = (options, done) => {
 	fs.readFile(options.url, (err, data) => {
-		var pic = {
+		picPipe.bucketer({
 			buffer: data,
 			name: 'testing_dir/' + lal.dateFormat() + '.' + options.mime,
 			bucket: process.env.S3_BUCKET,
 			mimetype: mimer(options.mime)
-		};
-		picPipe.bucketer(pic, (err, uploaded) => {
-			if (err) {
-				console.log('bucketer error:');
-				console.log(err);
-				done(err);
-			}
-			console.log('uploaded:');
-			console.log(uploaded);
-			expect(uploaded).to.include.keys('eTag');
-			done();
-		});
+		})
+			.then((uploaded) => {
+				console.log('uploaded:', uploaded);
+				expect(uploaded).to.include.keys('eTag');
+				done();
+			})
+			.catch((err) => {
+				done(err)
+			})
 	});
 };
