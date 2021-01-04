@@ -4,7 +4,8 @@ var AWS = require('aws-sdk'),
 	chroma = require('chroma-js'),
 	getPixels = require('get-pixels'),
 	palette = require('get-rgba-palette'),
-	sharp = require('sharp');
+	sharp = require('sharp'),
+	lal = require('lal');
 
 AWS.config.update({
 	accessKeyId: process.env.S3_KEY,
@@ -13,7 +14,20 @@ AWS.config.update({
 });
 
 const badBuffer = (input) => (!input || input.length <= 0 || !Buffer.isBuffer(input));
-const formatErr = (val) => new Error(`input${val ? '.' : ''}${val} not provided`);
+
+const picEval = (input, output) => {
+	let errs = [];
+	if (!input) return output({ message: 'No input provided' });
+	if (badBuffer(input.buffer)) errs.push('buffer');
+	if (!input.bucketEval && !input.maxPixel) errs.push('maxPixel');
+	if (!input.mimetype) errs.push('mimetype');
+	if (input.bucketEval && !input.name) errs.push('name');
+	if (errs.length > 0) return output({
+		message: `Pic-pipe input invalid/missing propert${(errs.length > 1) ? 'ies' : 'y'}: ${lal.arrayList(errs)}`
+	});
+	return output(null);
+};
+
 /**
  * Uploads objects with image buffer to S3.
  *
@@ -37,10 +51,9 @@ const s3Up = (input) => new Promise((s3Resolve, s3Reject) => {
 });
 
 const bucketer = (input) => new Promise((bucketResolve, bucketReject) => {
-	if (badBuffer(input.buffer)) bucketReject(formatErr('buffer'));
-	else if (!input.name) bucketReject(formatErr('name'));
-	else if (!input.bucket) bucketReject(formatErr('bucket'));
-	else if (!input.mimetype) bucketReject(formatErr('mimetype'));
+	picEval({...input, bucketEval: true}, (errors) => {
+		if (errors) bucketReject(Error(errors.message));
+	});
 
 	s3Up({
 		Body: input.buffer,
@@ -123,9 +136,9 @@ function colorArrGen(input) {
  */
 
 const resizeAndCompress = (input) => new Promise((resolve, reject) => {
-	if (!input) reject(formatErr());
-	else if (badBuffer(input.buffer)) reject(formatErr('buffer'));
-	else if (!input.maxPixel) reject(formatErr('maxPixel'));
+	picEval(input, (errors) => {
+		if (errors) reject(Error(errors.message));
+	});
 	resizer(input)
 		.then((resized) => imgJunction(resized))
 		.then((compressed) => resolve(compressed));

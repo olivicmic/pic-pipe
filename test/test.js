@@ -66,35 +66,35 @@ describe('Uploading tests', function () {
 	});
 });
 
-
-
 describe('error tests', function () {
 	this.timeout(20000);
 	it('Should error with non-buffer', (done) => {
 		picPipe.resizeAndCompress({
 			buffer: 'nothing',
 			thumb: true,
-			maxPixel: 768
+			maxPixel: 768,
+			mimetype: 'image/jpeg'
 		})
 			.then((yah) => {})
 			.catch((error) => {
+				console.log(error.message);
 				expect(error).to.not.be.null;
 	          	expect(error).to.not.be.undefined;
-	          	expect(error.message).to.equal('input.buffer not provided');
+	          	expect(error.message).to.equal('Pic-pipe input invalid/missing property: buffer');
 				done();
 			});
 	});
 
-	it('Should error with undefined buffer', (done) => {
+	it('Should error with undefined buffer, maxPixel and mimetype', (done) => {
 		picPipe.resizeAndCompress({
 			thumb: true,
-			maxPixel: 768
 		})
 			.then((yah) => {})
 			.catch((error) => {
+				console.log(error.message);
 				expect(error).to.not.be.null;
 	          	expect(error).to.not.be.undefined;
-	          	expect(error.message).to.equal('input.buffer not provided');
+	          	expect(error.message).to.equal('Pic-pipe input invalid/missing properties: buffer, maxPixel and mimetype');
 				done();
 			});
 	});

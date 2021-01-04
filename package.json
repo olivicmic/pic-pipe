@@ -1,6 +1,6 @@
 {
   "name": "pic-pipe",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Tasks for working with pictures",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "chroma-js": "^1.4.1",
     "get-pixels": "^3.3.2",
     "get-rgba-palette": "^2.0.1",
-    "lal": "^1.0.0",
+    "lal": "^1.1.0",
     "sharp": "^0.26.3"
   }
 }
