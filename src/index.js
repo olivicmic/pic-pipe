@@ -2,7 +2,7 @@
 
 var AWS = require('aws-sdk'),
 	chroma = require('chroma-js'),
-	getPixels = require('get-pixels'),
+	getPixels = require('get-pixels-updated'),
 	palette = require('get-rgba-palette'),
 	sharp = require('sharp'),
 	lal = require('lal');
