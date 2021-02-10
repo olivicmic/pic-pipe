@@ -66,7 +66,7 @@ input:
 output callback:
 - `err {object}`: Contains the error object if there is an error.
 - `input.picColors {array}`: An array with up to 9 color values a hex strings.
-- `input.colorAverage {array}`: An Array with 3 numbers (0-255) for each RGB value.
+- `input.colorAverage {string}`: A single hex string
 
 ```Javascript
 
@@ -81,8 +81,8 @@ picPipe.colorPull(myImage, function(err, colors) {
 	}
 	console.log(colors);
 	// returns 2 color arrays. Examples:
-	// picColors = ['777777', '888888', '999999', 'aaaaaa', 'bbbbbb', 'cccccc', 'dddddd', 'eeeeee', 'ffffff']
-	// colorAverage = [255, 255, 255]
+	// picColors = ['#777777', '#888888', '#999999', '#aaaaaa', '#bbbbbb', '#cccccc', '#dddddd', '#eeeeee', '#ffffff']
+	// colorAverage = '#808080'
 });
 
 ```

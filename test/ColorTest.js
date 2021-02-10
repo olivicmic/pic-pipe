@@ -1,6 +1,6 @@
 const fs = require('fs'),
 	expect = require('chai').expect,
-	sharp = require('sharp'),
+	hexColorRegex = require('hex-color-regex'),
 	picPipe = require('../index'),
 	mimer = require('./Mimer');
 
@@ -22,7 +22,7 @@ module.exports = (options, done) => {
 			console.log(colors.colorAverage);
 			expect(colors.picColors.length).to.be.above(1);
 			expect(colors.picColors.length).to.be.at.most(9);
-			expect(colors.colorAverage.length).to.equal(3);
+			expect(hexColorRegex({ strict: true }).test(colors.colorAverage)).to.be.true;
 			done();
 		});
 	});

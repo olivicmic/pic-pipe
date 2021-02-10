@@ -81,24 +81,27 @@ const bucketer = (input) => new Promise((bucketResolve, bucketReject) => {
  * @param {object} err - Contains the error object if there is an error.
  * @param {object} input - Contains the initial input object with color properties.
  * @property {array} colors.picColors - An array with up to 9 color values a hex strings.
- * @property {array} colors.colorAverage - An Array with 3 numbers (0-255) for each RGB value.
+ * @property {string} colors.colorAverage - A hex color string.
  */
 function colorPull(input, output) {
 	getPixels(input.buffer, input.mimetype, (err, pixels) => {
 		if (err) throw new Error(err);
 
-		input.picColors = colorArrGen({
+		const picColors = colorArrGen({
 			pixels: pixels,
-			count: 9,
+			count: 10,
 			type: 'samples'
 		});
-		input.colorAverage = colorArrGen({
+		const colorAverage = colorArrGen({
 			pixels: pixels,
 			count: 1,
 			type: 'average'
-		})[0];
+		});
 
-		return output(null, input);
+		return output(null, {
+			picColors,
+			colorAverage
+		});
 	});
 }
 
@@ -108,15 +111,10 @@ function colorArrGen(input) {
 			return chroma(rgba)
 				.saturate(0.33)
 				.brighten(0.25)
-				.hex()
-				.slice(1);
+				.hex();
 		});
-	} else if (input.type === 'average') {
-		return palette(input.pixels.data, input.count, (rgba) => {
-			return chroma(rgba).hsl();
-		});
-	}
-}
+	} else if (input.type === 'average') return chroma(palette(input.pixels.data, input.count)[0]).hex();
+};
 
 /**
  * Resizes image proportionately or makes thumbnails.

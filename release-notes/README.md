@@ -1,3 +1,12 @@
+# pic-pipe 4.0.0 Release Notes
+## Feb 9, 2021
+
+## Changes
+
+* **Dependencies removed** - gulp no longer used for development.
+* **colorPull** - now outputs hex colors with hashes instead for both the color set and average color.
+
+
 # pic-pipe 3.0.0 Release Notes
 ## Jan 2, 2021
 

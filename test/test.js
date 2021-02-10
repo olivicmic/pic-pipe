@@ -87,7 +87,7 @@ describe('error tests', function () {
 
 	it('Should error with undefined buffer, maxPixel and mimetype', (done) => {
 		picPipe.resizeAndCompress({
-			thumb: true,
+			thumb: true
 		})
 			.then((yah) => {})
 			.catch((error) => {
