@@ -32,6 +32,6 @@
     "get-rgba-palette": "^2.0.1",
     "hex-color-regex": "^1.1.0",
     "lal": "^3.3.0",
-    "sharp": "^0.26.3"
+    "sharp": "^0.30.5"
   }
 }
