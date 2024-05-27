@@ -1,0 +1,1001 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"stat",
+				"status"
+			],
+			[
+				"ma",
+				"margin-bottom"
+			],
+			[
+				"inf",
+				"inferenceJobs"
+			],
+			[
+				"get",
+				"getStatus"
+			],
+			[
+				"new",
+				"newJobs"
+			],
+			[
+				"dat",
+				"datasets"
+			],
+			[
+				"fetc",
+				"fetchDatasets"
+			],
+			[
+				"In",
+				"InferenceJobsList"
+			],
+			[
+				"on",
+				"onChange"
+			],
+			[
+				"fe",
+				"fetchedSet"
+			],
+			[
+				"use",
+				"useEffect"
+			],
+			[
+				"us",
+				"useEffect"
+			],
+			[
+				"Upda",
+				"UpdateVoice"
+			],
+			[
+				"la",
+				"language"
+			],
+			[
+				"voic",
+				"voice_token"
+			],
+			[
+				"voice",
+				"voiceToken"
+			],
+			[
+				"data",
+				"dataset"
+			],
+			[
+				"vis",
+				"visibilitySet"
+			],
+			[
+				"titl",
+				"titleSet"
+			],
+			[
+				"fet",
+				"fetchedSet"
+			],
+			[
+				"dataset",
+				"dataset_token"
+			],
+			[
+				"cons",
+				"console.log(\"🍄"
+			],
+			[
+				"fetch",
+				"fetchedVoices"
+			],
+			[
+				"fec",
+				"fetched"
+			],
+			[
+				"Crea",
+				"CreateVoice"
+			],
+			[
+				"for",
+				"formData"
+			],
+			[
+				"fo",
+				"forEach"
+			],
+			[
+				"Ma",
+				"MakeMultipartRequest"
+			],
+			[
+				"For",
+				"FormData"
+			],
+			[
+				"Upload",
+				"UploadSample"
+			],
+			[
+				"Uploa",
+				"UploadSample"
+			],
+			[
+				"audp",
+				"audioProps"
+			],
+			[
+				"infere",
+				"inferenceJobs"
+			],
+			[
+				"s",
+				"success"
+			],
+			[
+				"vi",
+				"visibility"
+			],
+			[
+				"Sel",
+				"SelectProps"
+			],
+			[
+				"cl",
+				"classNames"
+			],
+			[
+				"ac",
+				"actionDataSets"
+			],
+			[
+				"da",
+				"datasetListProps"
+			],
+			[
+				"inde",
+				"indexOf"
+			],
+			[
+				"Bu",
+				"ButtonProps"
+			],
+			[
+				"show",
+				"showButton"
+			],
+			[
+				"butt",
+				"button"
+			],
+			[
+				"fa",
+				"faPlus"
+			],
+			[
+				"dele",
+				"delete"
+			],
+			[
+				"vo",
+				"voices"
+			],
+			[
+				"Cre",
+				"CreateVoice"
+			],
+			[
+				"optio",
+				"options"
+			],
+			[
+				"op",
+				"option"
+			],
+			[
+				"u",
+				"unknown"
+			],
+			[
+				"o",
+				"option"
+			],
+			[
+				"visi",
+				"visibility"
+			],
+			[
+				"crea",
+				"create"
+			],
+			[
+				"butto",
+				"buttonOnClick"
+			],
+			[
+				"heade",
+				"headerProps"
+			],
+			[
+				"form-",
+				"form-group"
+			],
+			[
+				"voi",
+				"voice-designer"
+			],
+			[
+				"class",
+				"classNames"
+			],
+			[
+				"rounde",
+				"rounded-full"
+			],
+			[
+				"Temp",
+				"TempInput"
+			],
+			[
+				"lan",
+				"language"
+			],
+			[
+				"in",
+				"inputCtrl"
+			],
+			[
+				"Lang",
+				"Language"
+			],
+			[
+				"t",
+				"target"
+			],
+			[
+				"d",
+				"datasetToken"
+			],
+			[
+				"se",
+				"sessionWrapper"
+			],
+			[
+				"sessi",
+				"sessionWrapper"
+			],
+			[
+				"ses",
+				"sessionWrapper"
+			],
+			[
+				"sessions",
+				"sessionStateResponse"
+			],
+			[
+				"Ses",
+				"SessionContext"
+			],
+			[
+				"Sess",
+				"SessionProvider"
+			],
+			[
+				"cr",
+				"createContext"
+			],
+			[
+				"su",
+				"subText"
+			],
+			[
+				"Data",
+				"DatasetEditor"
+			],
+			[
+				"Vo",
+				"VoiceBadge"
+			],
+			[
+				"B",
+				"Badge"
+			],
+			[
+				"na",
+				"navToEdit"
+			],
+			[
+				"Em",
+				"Emblem"
+			],
+			[
+				"actio",
+				"actionDataSets"
+			],
+			[
+				"New",
+				"NewList"
+			],
+			[
+				"can",
+				"cancelEvent"
+			],
+			[
+				"onc",
+				"onCancel"
+			],
+			[
+				"thi",
+				"thisFile\tthisFile"
+			],
+			[
+				"user",
+				"username"
+			],
+			[
+				"Test",
+				"TestResponse"
+			],
+			[
+				"De",
+				"DefaultResponse"
+			],
+			[
+				"end",
+				"endpoint"
+			],
+			[
+				"cat",
+				"category"
+			],
+			[
+				"en",
+				"endpoint"
+			],
+			[
+				"check",
+				"checkRequest"
+			],
+			[
+				"re",
+				"request"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"r",
+				"requestCheck"
+			],
+			[
+				"P",
+				"POST"
+			],
+			[
+				"res",
+				"resObj"
+			],
+			[
+				"ca",
+				"category"
+			],
+			[
+				"dis",
+				"disableSSL"
+			],
+			[
+				"cre",
+				"create"
+			],
+			[
+				"fle",
+				"flex-wrap"
+			],
+			[
+				"view",
+				"viewResult"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"app",
+				"appLoaded"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 925,
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+				[
+					3,
+					2,
+					"left_delete",
+					null,
+					"AgAAAJIDAAAAAAAAkgMAAAAAAAABAAAANpEDAAAAAAAAkQMAAAAAAAABAAAAMg",
+					"AQAAAAAAAAABAAAAkwMAAAAAAACTAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					4,
+					1,
+					"insert",
+					{
+						"characters": "33"
+					},
+					"AgAAAJEDAAAAAAAAkgMAAAAAAAAAAAAAkgMAAAAAAACTAwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAkQMAAAAAAACRAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					6,
+					1,
+					"left_delete",
+					null,
+					"AQAAAJQDAAAAAAAAlAMAAAAAAAABAAAAMw",
+					"AQAAAAAAAAABAAAAlQMAAAAAAACVAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					7,
+					1,
+					"insert",
+					{
+						"characters": "0"
+					},
+					"AQAAAJQDAAAAAAAAlQMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAlAMAAAAAAACUAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					9,
+					1,
+					"revert",
+					null,
+					"AgAAAAAAAAAAAAAAAAAAAAAAAACdAwAAewogICJuYW1lIjogInBpYy1waXBlIiwKICAidmVyc2lvbiI6ICI0LjAuMCIsCiAgImRlc2NyaXB0aW9uIjogIlRhc2tzIGZvciB3b3JraW5nIHdpdGggcGljdHVyZXMiLAogICJtYWluIjogImluZGV4LmpzIiwKICAic2NyaXB0cyI6IHsKICAgICJ0ZXN0IjogIm1vY2hhIC0tcmVwb3J0ZXIgc3BlYyIsCiAgICAid2F0Y2giOiAiZXN3IC13IC0tY29sb3IgLS1jbGVhciAtLWlnbm9yZS1wYXR0ZXJuIC5lc2xpbnRyYy5qcyIKICB9LAogICJlbmdpbmVzIjogewogICAgIm5vZGUiOiAiPj02LjEwLjAiCiAgfSwKICAicmVwb3NpdG9yeSI6IHsKICAgICJ0eXBlIjogImdpdCIsCiAgICAidXJsIjogImdpdCtodHRwczovL2dpdGh1Yi5jb20vb2xpdmljbWljL3BpYy1waXBlLmdpdCIKICB9LAogICJhdXRob3IiOiAiVmljdG9yIDx2aWNAdmljcy5waWNzPiAoaHR0cDovL3ZpY3MucGljcykiLAogICJsaWNlbnNlIjogIk1JVCIsCiAgImJ1Z3MiOiB7CiAgICAidXJsIjogImh0dHBzOi8vZ2l0aHViLmNvbS9vbGl2aWNtaWMvcGljLXBpcGUvaXNzdWVzIgogIH0sCiAgImhvbWVwYWdlIjogImh0dHBzOi8vZ2l0aHViLmNvbS9vbGl2aWNtaWMvcGljLXBpcGUjcmVhZG1lIiwKICAiZGV2RGVwZW5kZW5jaWVzIjogewogICAgImNoYWkiOiAiXjQuMi4wIiwKICAgICJjaGFsayI6ICJeNC4xLjAiLAogICAgIm1vY2hhIjogIl44LjIuMSIKICB9LAogICJkZXBlbmRlbmNpZXMiOiB7CiAgICAiYXdzLXNkayI6ICJeMi44MTUuMCIsCiAgICAiY2hyb21hLWpzIjogIl4yLjEuMCIsCiAgICAiZ2V0LXBpeGVscy11cGRhdGVkIjogIl4xLjAuMCIsCiAgICAiZ2V0LXJnYmEtcGFsZXR0ZSI6ICJeMi4wLjEiLAogICAgImhleC1jb2xvci1yZWdleCI6ICJeMS4xLjAiLAogICAgImxhbCI6ICJeMy4zLjAiLAogICAgInNoYXJwIjogIl4wLjMzLjAiCiAgfQp9CgAAAAAAAAAAnQMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAlQMAAAAAAACVAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					10,
+					1,
+					"revert",
+					null,
+					"AgAAAAAAAAAAAAAAAAAAAAAAAACdAwAAewogICJuYW1lIjogInBpYy1waXBlIiwKICAidmVyc2lvbiI6ICI0LjAuMCIsCiAgImRlc2NyaXB0aW9uIjogIlRhc2tzIGZvciB3b3JraW5nIHdpdGggcGljdHVyZXMiLAogICJtYWluIjogImluZGV4LmpzIiwKICAic2NyaXB0cyI6IHsKICAgICJ0ZXN0IjogIm1vY2hhIC0tcmVwb3J0ZXIgc3BlYyIsCiAgICAid2F0Y2giOiAiZXN3IC13IC0tY29sb3IgLS1jbGVhciAtLWlnbm9yZS1wYXR0ZXJuIC5lc2xpbnRyYy5qcyIKICB9LAogICJlbmdpbmVzIjogewogICAgIm5vZGUiOiAiPj02LjEwLjAiCiAgfSwKICAicmVwb3NpdG9yeSI6IHsKICAgICJ0eXBlIjogImdpdCIsCiAgICAidXJsIjogImdpdCtodHRwczovL2dpdGh1Yi5jb20vb2xpdmljbWljL3BpYy1waXBlLmdpdCIKICB9LAogICJhdXRob3IiOiAiVmljdG9yIDx2aWNAdmljcy5waWNzPiAoaHR0cDovL3ZpY3MucGljcykiLAogICJsaWNlbnNlIjogIk1JVCIsCiAgImJ1Z3MiOiB7CiAgICAidXJsIjogImh0dHBzOi8vZ2l0aHViLmNvbS9vbGl2aWNtaWMvcGljLXBpcGUvaXNzdWVzIgogIH0sCiAgImhvbWVwYWdlIjogImh0dHBzOi8vZ2l0aHViLmNvbS9vbGl2aWNtaWMvcGljLXBpcGUjcmVhZG1lIiwKICAiZGV2RGVwZW5kZW5jaWVzIjogewogICAgImNoYWkiOiAiXjQuMi4wIiwKICAgICJjaGFsayI6ICJeNC4xLjAiLAogICAgIm1vY2hhIjogIl44LjIuMSIKICB9LAogICJkZXBlbmRlbmNpZXMiOiB7CiAgICAiYXdzLXNkayI6ICJeMi44MTUuMCIsCiAgICAiY2hyb21hLWpzIjogIl4yLjEuMCIsCiAgICAiZ2V0LXBpeGVscy11cGRhdGVkIjogIl4xLjAuMCIsCiAgICAiZ2V0LXJnYmEtcGFsZXR0ZSI6ICJeMi4wLjEiLAogICAgImhleC1jb2xvci1yZWdleCI6ICJeMS4xLjAiLAogICAgImxhbCI6ICJeMy4zLjAiLAogICAgInNoYXJwIjogIl4wLjMzLjQiCiAgfQp9CgAAAAAAAAAAnQMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAlQMAAAAAAACVAwAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "test/TestImages.js",
+			"settings":
+			{
+				"buffer_size": 873,
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+				[
+					51,
+					1,
+					"revert",
+					null,
+					"AgAAAAAAAAAAAAAAAAAAAAAAAABpAwAAY29uc3QgdGVzdExvY2F0aW9uID0gYCR7cHJvY2Vzcy5jd2QoKX0vdGVzdF9pbWFnZXMvYDsKCmNvbnN0IHNpemUgPSBbJ2xhcmdlJywgJ3NtYWxsJ107CmNvbnN0IHR5cGVzID0gWydqcGVnJywgJ3BuZyddOwpjb25zdCBvcmllbnRhdGlvbnMgPSBbJ3BvcnRyYWl0JywgJ2xhbmRzY2FwZScsICdzcXVhcmUnXTsKCmNvbnN0IG1ha2VQYXRocyA9IChpbnB1dCkgPT4gewoJbGV0IHBhdGhTZXQgPSBbXTsKCWlmIChpbnB1dC50eXBlcykgaW5wdXQudHlwZXMubWFwKCh0eXBlLCBpKSA9PiB7CgkJaWYgKGlucHV0Lm9yaWVudCkgaW5wdXQub3JpZW50Lm1hcCgob3JyaWVudCwgaSkgPT4gewoJCQlpZiAoaW5wdXQuc2l6ZVswXSkgcGF0aFNldC5wdXNoKGlucHV0LnNpemVbMF0gKyAnXycgKyBvcnJpZW50ICsgJ18nICsgdHlwZSk7CgkJCWlmIChpbnB1dC5zaXplWzFdKSBwYXRoU2V0LnB1c2goaW5wdXQuc2l6ZVsxXSArICdfJyArIG9ycmllbnQgKyAnXycgKyB0eXBlKTsKCQl9KTsKCX0pOwoJcmV0dXJuIHBhdGhTZXQ7Cn0KCmNvbnN0IG1ha2VPcHRpb25zID0gKGlucHV0KSA9PiB7CglsZXQgcGFydHMgPSBpbnB1dC5maWxlLnNwbGl0KCdfJyk7CglsZXQgZmlsZW5hbWUgPSBgJHtwYXJ0c1swXX1fJHtwYXJ0c1sxXX0uJHtwYXJ0c1syXX1gOwoJcmV0dXJuIHsKCQlmaWxlbmFtZTogZmlsZW5hbWUsCgkJdXJsOiB0ZXN0TG9jYXRpb24gKyBmaWxlbmFtZSwKCQltaW1lOiBwYXJ0c1syXSwKCQlvcmllbnQ6IGlucHV0Lm9yaWVudCA/IGlucHV0Lm9yaWVudCA6IHBhcnRzWzFdLAoJCWRldGFpbDogaW5wdXQuZmlsZS5yZXBsYWNlKC9fL2csICcgJykKCX07Cn07Cgptb2R1bGUuZXhwb3J0cyA9IHsKCW1ha2VQYXRocywKCW1ha2VPcHRpb25zCn07AAAAAAAAAABpAwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAACQIAAAAAAAAJAgAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"bro",
+				"Preferences: Browse Packages"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/olivicmic/Repos/pic-pipe",
+		"/Users/olivicmic/Repos/pic-pipe/test"
+	],
+	"file_history":
+	[
+		"/Users/olivicmic/Repos/vprime/src/resources/staticContent/easings.js",
+		"/Users/olivicmic/Repos/vprime/src/components/common/Icon/Icon.scss",
+		"/Users/olivicmic/Repos/vprime/src/hooks/useActionWatch/useActionWatch.js",
+		"/Users/olivicmic/Repos/vprime/src/components/common/Icon/IconPaths.js",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/TempSelect/TempSelect.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/voice_designer/voice_datasets/CreateDataset.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/MakeRequest.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/MakeMultipartRequest.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/hooks/useFile/useFile.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/upload/UploadAudio.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/lipsync/LipsyncEditor/FaceAnimatorTypes.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/lipsync/LipsyncEditor/LipsyncEditor.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/voice_designer/voices/CreateVoice.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/voice_designer/voice_datasets/ListDatasetsByUser.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/_common/UserDetailsLight.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/voice_designer/voices/ListVoicesByUser.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/voice_designer/voice_datasets/UpdateDataset.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/hooks/useIdempotency/useIdempotency.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/useVoiceRequests.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/PageContainer.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/DatasetEditor.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/Button/ButtonProps.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/layout/InferenceJobsList/index.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/hooks/useInferenceJobs/useInferenceJobs.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/App.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/layout/InferenceJobsList/InferenceJobsList.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/VoiceDesignerVoiceEditPage.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/VoiceDesignerFormPage.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/jobs/InferenceJob.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/VoiceDesignerUseVoicePage.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/lipsync/LipsyncEditor/LipsyncEditor.scss",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/VoiceDesignerMainPage.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/vc/vc_model_list/VcModelListPage.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/GetApiHost.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/components/steps/VoiceDetails.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/components/ListItems/ListItems.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/providers/InferenceJobs/InferenceJobs.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/components/steps/UploadSamples.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/components/VoiceDesignerUploadComponent.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/lipsync/LipsyncEditor/FaceAnimatorJobs.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/voice_designer/voice_dataset_samples/UploadSample.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/AudioInput/AudioInput.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/FileWrapper/FileWrapper.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/_common/SessionW2lTemplateUploadResultsList.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/Button/Button.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/components/NewList.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/layout/PageHeader/PageHeader.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/layout/TempPageHeader/PageHeader.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/index.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/voice_designer/voices/UpdateVoice.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/TempInput/TempInput.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/VoiceDesigner.scss",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/SegmentButtons/SegmentButtons.scss",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/TempSelect/index.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/Inputs/Inputs.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/providers/Session/Session.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/context/SessionContext.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/hooks/index.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/voice_designer/voice_datasets/DeleteDataset.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/Modal/Modal.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/TempInput/index.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/Input/Input.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/components/Stepper.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/components/StepperControls.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/vc/VoiceDetails.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/hooks/useSession/useSession.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/context/index.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/hooks/useSession/index.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/providers/index.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/providers/Session/index.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/UseVoiceRequests.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/voice_designer/UseVoiceRequests.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/voice_designer/UpdateVoice.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/Endpoints.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/ApiConfig.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/face_animation/EnqueueFaceAnimation.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/dashboard.power.stream/src/App.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/public/locales/en/FaceAnimator.json",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/components/src/api/model_inference/GetModelInferenceJobStatus.ts",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/Checkbox/Checkbox.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/SegmentButtons/SegmentButtons.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/public/locales/hi/FaceAnimator.json",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/scss/colours.scss",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/v2/view/pages/lipsync/LipsyncEditor/FaceAnimatorInput.tsx",
+		"/Users/olivicmic/Repos/storyteller-frontend/packages/fakeyou.com/src/components/common/FileDetails/FileDetails.tsx"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 127.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 925,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								917,
+								917
+							]
+						],
+						"settings":
+						{
+							"lsp_uri": "file:///Users/olivicmic/Repos/pic-pipe/package.json",
+							"syntax": "Packages/JSON/JSON.sublime-syntax",
+							"tab_size": 2,
+							"tabs_extra_last_activated": 1716838781.01,
+							"tabs_extra_last_activated_sheet_index": 0,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "test/TestImages.js",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 873,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								521,
+								521
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html, text.xml"
+								},
+								{
+									"rhs_empty": true,
+									"selector": "punctuation.accessor"
+								},
+								{
+									"characters": ".\"'/@<",
+									"selector": "meta.tag, source - comment - string.quoted.double.block - string.quoted.single.block - string.unquoted.heredoc",
+									"server": "LSP-typescript"
+								}
+							],
+							"lsp_active": true,
+							"lsp_uri": "file:///Users/olivicmic/Repos/pic-pipe/test/TestImages.js",
+							"show_definitions": false,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"tab_size": 4,
+							"tabs_extra_last_activated": 1716839747.94,
+							"tabs_extra_last_activated_sheet_index": 1,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 45.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.LSP Log Panel":
+	{
+		"height": 0.0
+	},
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.SublimeLinter Messages":
+	{
+		"height": 140.0
+	},
+	"output.diagnostics":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 140.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "pic-pipe.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"eas",
+				"src/resources/staticContent/easings.js"
+			],
+			[
+				"icon",
+				"src/components/common/Icon/IconPaths.js"
+			],
+			[
+				"tem",
+				"packages/fakeyou.com/src/components/common/TempSelect/TempSelect.tsx"
+			],
+			[
+				"lips",
+				"packages/fakeyou.com/src/v2/view/pages/lipsync/LipsyncEditor/LipsyncEditor.tsx"
+			],
+			[
+				"voicedesigner",
+				"packages/fakeyou.com/src/v2/view/pages/voice_designer/VoiceDesignerUseVoicePage.tsx"
+			],
+			[
+				"faceanimatorjo",
+				"packages/fakeyou.com/src/v2/view/pages/lipsync/LipsyncEditor/FaceAnimatorJobs.tsx"
+			],
+			[
+				"filew",
+				"packages/fakeyou.com/src/components/common/FileWrapper/FileWrapper.tsx"
+			],
+			[
+				"audi",
+				"packages/fakeyou.com/src/components/common/AudioInput/AudioInput.tsx"
+			],
+			[
+				"button",
+				"packages/fakeyou.com/src/components/common/Button/ButtonProps.tsx"
+			],
+			[
+				"butt",
+				"packages/fakeyou.com/src/components/common/Button/Button.tsx"
+			],
+			[
+				"tempse",
+				"packages/fakeyou.com/src/components/common/TempSelect/TempSelect.tsx"
+			],
+			[
+				"page",
+				"packages/fakeyou.com/src/v2/view/PageContainer.tsx"
+			],
+			[
+				"seg",
+				"packages/fakeyou.com/src/components/common/SegmentButtons/SegmentButtons.scss"
+			],
+			[
+				"pagecon",
+				"packages/fakeyou.com/src/v2/view/PageContainer.tsx"
+			],
+			[
+				"datase",
+				"packages/fakeyou.com/src/v2/view/pages/voice_designer/DatasetEditor.tsx"
+			],
+			[
+				"useIn",
+				"packages/fakeyou.com/src/hooks/useInferenceJobs/useInferenceJobs.tsx"
+			],
+			[
+				"app",
+				"packages/dashboard.power.stream/src/App.tsx"
+			],
+			[
+				"api",
+				"packages/components/src/api/ApiConfig.ts"
+			],
+			[
+				"se",
+				"packages/fakeyou.com/src/components/common/SegmentButtons/SegmentButtons.tsx"
+			],
+			[
+				"check",
+				"packages/fakeyou.com/src/components/common/Checkbox/Checkbox.tsx"
+			],
+			[
+				"InferenceJob.",
+				"packages/fakeyou.com/src/components/providers/InferenceJobs/InferenceJobs.tsx"
+			],
+			[
+				"app.tsx",
+				"packages/dashboard.power.stream/src/App.tsx"
+			],
+			[
+				"usein",
+				"packages/fakeyou.com/src/hooks/useInferenceJobs/useInferenceJobs.tsx"
+			],
+			[
+				"filede",
+				"packages/fakeyou.com/src/components/common/FileDetails/FileDetails.tsx"
+			],
+			[
+				"useFI",
+				"packages/fakeyou.com/src/hooks/useFile/useFile.tsx"
+			],
+			[
+				"file",
+				"packages/fakeyou.com/src/components/common/FileWrapper/FileWrapper.tsx"
+			],
+			[
+				"audio",
+				"packages/fakeyou.com/src/components/common/AudioInput/AudioInput.tsx"
+			],
+			[
+				"sergmen",
+				"packages/fakeyou.com/src/components/common/SegmentButtons/SegmentButtons.tsx"
+			],
+			[
+				"Checkbox",
+				"packages/fakeyou.com/src/components/common/Checkbox/Checkbox.tsx"
+			],
+			[
+				"filewra",
+				"packages/fakeyou.com/src/components/common/FileWrapper/FileWrapper.tsx"
+			],
+			[
+				"filewr",
+				"packages/fakeyou.com/src/components/common/FileWrapper/FileWrapper.tsx"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 275.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
